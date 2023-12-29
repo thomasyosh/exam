@@ -49,7 +49,7 @@ public class ArrayQueue implements Queue {
 		int next=front;
 
 		for (int i=0; i<size(); i++) {
-			s += array[next] + " ";
+			s += array[next] + ", ";
 			next = (next + 1) % capacity;
 		}
 		return s + " ]";

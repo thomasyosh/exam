@@ -1,4 +1,4 @@
-public class Test {
+public class TestForString {
 	public static void main(String [] args) {
 		Comparator c = new StringComparator();
 		LinkedList s = new LinkedList(c);
@@ -17,8 +17,11 @@ public class Test {
 		s.insertInOrder("Thomas-2");
 		System.out.println(s);
 		s.insertInOrder("Alice-1");
+		s.removeItem("Alice-1");
 		System.out.println(s);
 		s.insertInOrder("Alice-2");
 		System.out.println(s);
+
+
 	}
 }

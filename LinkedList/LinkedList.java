@@ -2,6 +2,7 @@ public class LinkedList {
 	private ListNode head;
 	private ListNode tail;
 	private Comparator comparator;
+	private int count;
 
 	public LinkedList() {
 		head = null;
@@ -15,6 +16,10 @@ public class LinkedList {
 		this.comparator = comparator;
 	}
 
+	public int getCount(){
+		return count;
+	}
+
 	public void setComparator(Comparator comparator) {
 		this.comparator = comparator;
 	}
@@ -26,6 +31,7 @@ public class LinkedList {
 	public void insertInOrder(Object item) {
 		if (isEmpty()) {
 			head = tail = new ListNode(item);
+			count++;
 		} else {
 			if (comparator.isGreaterThanOrEqualTo(head.data, item)) {
 				addToHead(item);
@@ -38,6 +44,7 @@ public class LinkedList {
 						ListNode newNode = new ListNode(item);
 						newNode.next = current.next;
 						current.next = newNode;
+						count++;
 						return;
 					}
 					current = current.next;
@@ -60,6 +67,7 @@ public class LinkedList {
 			while (current.next != null) {
 				if (comparator.isEqualTo(current.next.data, item)) {
 					current.next = current.next.next;
+					count--;
 					return;
 				}
 				current = current.next;
@@ -74,15 +82,18 @@ public class LinkedList {
 		} else {
 			head = new ListNode(item, head);
 		}
+		count++;
 	}
 
 	public void addToTail(Object item) {
 		if (isEmpty()) {
-			head = tail = new ListNode(item);
+			addToHead(item);
 		} else {
 			tail.next = new ListNode(item);
 			tail =  tail.next;
+			count++;
 		}
+		
 	}
 
 	public Object removeFromHead() throws EmptyListException {
@@ -94,6 +105,7 @@ public class LinkedList {
 			head = tail = null;
 		else
 			head = head.next;
+		count--;
 		return item;
 	}
 
@@ -102,6 +114,7 @@ public class LinkedList {
 			throw new EmptyListException();
 		} 
 		Object item = tail.data;
+		count--;
 		if (head == tail) {   // there is only one node
 			head = tail = null;
 			return item;

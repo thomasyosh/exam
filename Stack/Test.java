@@ -7,6 +7,9 @@ public class Test {
 		Stack stack2 = new LinkedStack();
 		stack2.push(5);
 		stack2.push(515);
+		System.out.println(stack2.size());
+
+
 
 	}
 }

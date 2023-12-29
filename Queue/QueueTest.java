@@ -7,17 +7,18 @@ public class QueueTest {
 		 queue.enqueue("Alex");
 		 queue.enqueue("Sandy");
 		 queue.enqueue("Betty");
-		 System.out.println(queue);
+		 //System.out.println(queue);
 
 		 System.out.println("Removed: " + queue.dequeue());
-		 System.out.println(queue);
+		 //System.out.println(queue);
 		 System.out.println("Removed: " + queue.dequeue());
-		 System.out.println(queue);
+		 //System.out.println(queue);
 		 System.out.println("Removed: " + queue.dequeue());
-		 System.out.println(queue);
+		 //System.out.println(queue);
 
 		queue2.enqueue("LAM WAI HIN");
+		queue2.enqueue("POON YUK HO");
 
-		System.out.println("Front is " + queue2.front());
+		System.out.println(queue2);
 	}
 }

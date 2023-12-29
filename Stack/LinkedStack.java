@@ -31,4 +31,8 @@ public class LinkedStack implements Stack{
             throw new StackEmptyException();
         }
     }
+
+    public String toString(){
+        return list.toString();
+    }
 }

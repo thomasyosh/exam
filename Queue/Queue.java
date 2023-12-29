@@ -4,4 +4,5 @@ public interface Queue {
 	public abstract Object front() throws QueueEmptyException;
 	public abstract void enqueue(Object item) throws QueueFullException;
 	public abstract Object dequeue() throws QueueEmptyException;
+	public abstract String toString();
 }
