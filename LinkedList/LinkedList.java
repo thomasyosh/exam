@@ -1,5 +1,3 @@
-
-
 public class LinkedList {
 	private ListNode head;
 	private ListNode tail;

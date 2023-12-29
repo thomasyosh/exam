@@ -1,24 +1,76 @@
+
+
 public class LinkedList {
 	private ListNode head;
 	private ListNode tail;
-	private int count;
+	private Comparator comparator;
 
 	public LinkedList() {
 		head = null;
 		tail = null;
-		count = 0;
+		comparator = null;
+	}
+
+	public LinkedList(Comparator comparator) {
+		head = null;
+		tail = null;
+		this.comparator = comparator;
+	}
+
+	public void setComparator(Comparator comparator) {
+		this.comparator = comparator;
 	}
 
 	public boolean isEmpty() {
 		return (head==null);
 	}
 
-	public int getCount() {
-		return count;
+	public void insertInOrder(Object item) {
+		if (isEmpty()) {
+			head = tail = new ListNode(item);
+		} else {
+			if (comparator.isGreaterThanOrEqualTo(head.data, item)) {
+				addToHead(item);
+			} else if (comparator.isLessThanOrEqualTo(tail.data, item)) {
+				addToTail(item);
+			} else {
+				ListNode current = head;
+				while (current.next != null) {
+					if (comparator.isGreaterThanOrEqualTo(current.next.data, item)) {
+						ListNode newNode = new ListNode(item);
+						newNode.next = current.next;
+						current.next = newNode;
+						return;
+					}
+					current = current.next;
+				}
+			}
+		}
+	}
+
+	public void removeItem(Object item) throws ItemNotFoundException {
+		if (isEmpty()) {
+			throw new ItemNotFoundException();
+		} 
+
+		if (comparator.isEqualTo(head.data, item)) 
+			removeFromHead();
+		else if (comparator.isEqualTo(tail.data, item)) 
+			removeFromTail();
+		else {
+			ListNode current = head;
+			while (current.next != null) {
+				if (comparator.isEqualTo(current.next.data, item)) {
+					current.next = current.next.next;
+					return;
+				}
+				current = current.next;
+			}
+			throw new ItemNotFoundException();
+		}
 	}
 
 	public void addToHead(Object item) {
-		count++;
 		if (isEmpty()) {
 			head = tail = new ListNode(item);
 		} else {
@@ -27,7 +79,6 @@ public class LinkedList {
 	}
 
 	public void addToTail(Object item) {
-		count++;
 		if (isEmpty()) {
 			head = tail = new ListNode(item);
 		} else {
@@ -40,7 +91,6 @@ public class LinkedList {
 		if (isEmpty()) {
 			throw new EmptyListException();
 		} 
-		count--;
 		Object item = head.data;
 		if (head == tail) // there's only one single node
 			head = tail = null;
@@ -53,7 +103,6 @@ public class LinkedList {
 		if (isEmpty()) {
 			throw new EmptyListException();
 		} 
-		count--;
 		Object item = tail.data;
 		if (head == tail) {   // there is only one node
 			head = tail = null;
@@ -68,62 +117,6 @@ public class LinkedList {
 		tail.next = null;
 		return item;
 	}
-
-	public Object getItemAt(int n) {
-		if (n < 0 || n > count)
-			throw new IndexOutOfBoundsException();
-		int currentPos=0;
-		ListNode current=head;
-		while (currentPos < n) {
-			current=current.next;
-			currentPos++;
-		}
-		return current.data;
-	}
-
-	public Object removeItemAt(int n) {
-		if (n < 0 || n > count)
-			throw new IndexOutOfBoundsException();
-		if (n==0) {
-			return (removeFromHead());
-		}
-		
-		int currentPos=0;
-		ListNode current=head;
-		while (currentPos < (n-1)) { // locate the node before the one to be removed
-			current=current.next;
-			currentPos++;
-		}
-		Object item = current.next.data;
-		current.next = current.next.next;
-		count--;
-		return item;
-	}
-
-
-	public void addItemAt(Object item, int n) {
-		if (isEmpty() || n==0) {
-			addToHead(item);
-			return;
-		}
-		if (n >= count) {
-			addToTail(item);
-			return;
-		}
-
-		int currentPos=0;
-		ListNode current=head;
-		while (currentPos < (n-1)) {  // locate the node before the insertion point
-			current=current.next;
-			currentPos++;
-		}
-		ListNode newNode = new ListNode(item);
-		newNode.next = current.next;
-		current.next = newNode;
-		count++;
-	}
-
-
 
 	public String toString() {
 		String s = "[ ";
